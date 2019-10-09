@@ -1,0 +1,16 @@
+/* Toolbar icons */
+.wll-RunAllIcon {
+    background-color: var(--jp-inverse-layout-color3);
+    -webkit-mask-image: url(./fast_forward.svg);
+    mask-image: url(./fast_forward.svg);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
+
+.wll-RestartRunAllIcon {
+    background-color: var(--jp-inverse-layout-color3);
+    -webkit-mask-image: url(./fast_froward_refresh.svg);
+    mask-image: url(./fast_froward_refresh.svg);
+    -webkit-mask-size: contain;
+    mask-size: contain;
+}
