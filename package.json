@@ -1,6 +1,6 @@
 {
   "name": "@wallneradam/run_all_buttons",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Add 'Run all' and 'Restart kernel and run all' buttons into the toolbar",
   "keywords": [
     "jupyter",
@@ -31,12 +31,12 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@jupyterlab/application": "^1.0.0",
-    "@jupyterlab/notebook": "^1.1.3"
+    "@jupyterlab/application": "^2.0.0",
+    "@jupyterlab/notebook": "^2.0.0"
   },
   "devDependencies": {
     "rimraf": "^2.6.1",
-    "typescript": "~3.5.2"
+    "typescript": "~3.8.3"
   },
   "sideEffects": [
     "style/*.css"

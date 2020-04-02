@@ -1,34 +1,34 @@
 const KEY = 'run_all_buttons';
 const PLUGIN_NAME = `@wallneradam/${KEY}`;
 
-import { IDisposable, DisposableDelegate } from '@phosphor/disposable';
+import { IDisposable, DisposableDelegate } from '@lumino/disposable';
 import { JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application';
 import { NotebookPanel, INotebookModel, NotebookActions } from '@jupyterlab/notebook';
 import { DocumentRegistry } from '@jupyterlab/docregistry';
-import { ToolbarButton } from '@jupyterlab/apputils';
+import { ToolbarButton, sessionContextDialogs } from '@jupyterlab/apputils';
 
 
 /**
  * Notebook panel extension
  */
-class OutputAutoScroll implements DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
+class RunAllButtons implements DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
     createNew(panel: NotebookPanel, context: DocumentRegistry.IContext<INotebookModel>): IDisposable {
         // Callback of btnRunAll
         let cbRunAll = () => {
-            NotebookActions.runAll(panel.content, context.session);
+            NotebookActions.runAll(panel.content, context.sessionContext);
         }
 
         // Callback of btnRestartRunAll
         let cbRestartRunAll = () => {
-            panel.session.restart().then((restarted) => {
-                if (restarted) NotebookActions.runAll(panel.content, context.session);
+            sessionContextDialogs.restart(panel.sessionContext).then((restarted) => {
+                if (restarted) NotebookActions.runAll(panel.content, context.sessionContext);
             });
         }
 
         // Create a toolbar button
         let btnRunAll = new ToolbarButton({
             className: 'btnRunAll',
-            iconClassName: 'wll-RunAllIcon',
+            iconClass: 'wll-RunAllIcon',
             onClick: cbRunAll,
             tooltip: 'Run All Cells'
         });
@@ -36,7 +36,7 @@ class OutputAutoScroll implements DocumentRegistry.IWidgetExtension<NotebookPane
         // Create a toolbar button
         let btnRestartRunAll = new ToolbarButton({
             className: 'btnRunAll',
-            iconClassName: 'wll-RestartRunAllIcon',
+            iconClass: 'wll-RestartRunAllIcon',
             onClick: cbRestartRunAll,
             tooltip: 'Restart Kernel and Run All Cells'
         });
@@ -65,7 +65,7 @@ const extension: JupyterFrontEndPlugin<void> = {
     activate: (app: JupyterFrontEnd) => {
         console.log(`JupyterLab extension ${PLUGIN_NAME} is activated!`);
         // Register our extension
-        app.docRegistry.addWidgetExtension('notebook', new OutputAutoScroll);
+        app.docRegistry.addWidgetExtension('notebook', new RunAllButtons);
     }
 };
 
